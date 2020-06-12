@@ -4,6 +4,9 @@ OPLOG_TIMESTAMP_LOCATION="/srv/riffyn/mongo-connector/oplogts/oplog.timestamp"
 
 RESET_INDEX=${RESET_INDEX:-0}
 #SKIP_INDEX_RESET  : 0: do not reset and 1: reset index
+ELASTIC_TIMEOUT=${ELASTIC_TIMEOUT: 30}
+ELASTIC_MAX_RETRY=${ELASTIC_MAX_RETRY: 20}
+ELASTIC_RETRY_ON_TIMEOUT=${ELASTIC_RETRY_ON_TIMEOUT: 1}
 
 # Ignore warnings 'Unverified HTTPS request'
 export PYTHONWARNINGS="ignore:Unverified HTTPS request"
@@ -16,6 +19,9 @@ echo " value of ELASTIC_USER: ${ELASTIC_USER}"
 echo " value of ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}"
 echo " value of MONGO_HOSTS: ${MONGO_HOSTS}"
 echo " value of INDEX_NAME: ${INDEX_NAME}"
+echo " value of ELASTIC_TIMEOUT: ${ELASTIC_TIMEOUT}"
+echo " value of ELASTIC_MAX_RETRY: ${ELASTIC_MAX_RETRY}"
+echo " value of ELASTIC_RETRY_ON_TIMEOUT: ${ELASTIC_RETRY_ON_TIMEOUT}"
 
 echo "setting TARGET_URL for elasticsearch"
 # default to https unless ELASTIC_SSL_ENABLED is false

@@ -764,8 +764,8 @@ class OplogThread(threading.Thread):
                     LOG.always(total_docs)
                     LOG.always("_____________________________________________________________________________")
             except Exception as e:
-                # err_msg = "CurDocNum = {}  - exception = {}".format(doc_options['curDocNum'], e)
-                LOG.exception("+++++ OplogThread: caught exception during bulk upsert/ re-upsert ",  e)
+                err_msg = '+++++ OplogThread: caught exception during bulk upsert: {}'.format(e)
+                LOG.exception(err_msg)
 
                 if self.continue_on_error:
                     @self.ERROR_TIME.time()
