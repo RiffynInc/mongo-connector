@@ -4,6 +4,16 @@ DIR="`dirname \"$0\"`"
 PODS="mongo-connector-resourcetypes-0 mongo-connector-resources-0 mongo-connector-propertytypes-0"
 cd $DIR/../../
 
+if [ ! -d elastic2-doc-manager ]; then
+  echo "https://github.com/RiffynInc/elastic2-doc-manager must be checked out to the same directory as mongo-connector, e.g.,"
+  echo "  ~/workspace/mongo-connector"
+  echo "  ~/workspace/elastic2-doc-manager"
+  exit 1
+fi
+
+echo "setting kubectl context to minikube"
+kubectl config use-context minikube
+
 NON_LOCAL_PODS=$(kubectl get pod $PODS -o custom-columns=:{..containers[*].image} | grep connector | grep -v -e ":local$" | wc -l | tr -d '[:space:]')
 
 if [ $NON_LOCAL_PODS -gt 0 ]; then
@@ -11,13 +21,6 @@ if [ $NON_LOCAL_PODS -gt 0 ]; then
   echo "  To use this script, you must first stop any running connector pods and then start them with the :local tag"
   echo "  e.g., local-dev.py --start mongo-connector-resources:local"
   exit 2
-fi
-
-if [ -d elastic2-doc-manager ]; then
-  echo "https://github.com/RiffynInc/elastic2-doc-manager must be checked out to the same directory as mongo-connector, e.g.,"
-  echo "  ~/workspace/mongo-connector"
-  echo "  ~/workspace/elastic2-doc-manager"
-  exit 1
 fi
 
 cd mongo-connector && python setup.py bdist_wheel
