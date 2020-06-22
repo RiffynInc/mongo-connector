@@ -25,6 +25,17 @@ Getting Started
 mongo-connector supports Python 2.6, 2.7, and 3.3+ and MongoDB versions
 2.4, 2.6, 3.0, 3.2, and 3.4.
 
+Riffyn FYI
+---------------
+
+To use locally, you will build and deploy into minikube.
+
+- First, delete any running connectors using local-dev.py
+- Then, run `./scripts/rebuild-mongo-connector.sh`
+- Then, start the connectors using the `local` tag, e.g., `local-dev.py --start mongo-connector-resources:local`
+- Once initialized, rerunning `./scripts/rebuild-mongo-connector.sh` will automatically deploy into minikube
+- When you're done, don't forget to --stop and --start your connectors with `:master-latest`
+
 Installation
 ~~~~~~~~~~~~
 
